@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resumo de Faltas - {{ encarregado }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            padding: 20px;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .alert {
+            color: #D32F2F;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .share-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #25D366; /* Cor do WhatsApp */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        @media (max-width: 480px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 5px;
+            }
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resumo de Faltas - {{ encarregado }}</h1>
+        {% if mensagem %}
+            <p>{{ mensagem }}</p>
+        {% else %}
+            <p class="alert">Atenção: As faltas confirmadas resultarão em descontos no salário dos colaboradores e podem acarretar medidas disciplinares.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Funcionário</th>
+                        <th>Data da Falta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for falta in faltas %}
+                        <tr>
+                            <td>{{ falta.MATRICULA }}</td>
+                            <td>{{ falta.FUNCIONARIO }}</td>
+                            <td>{{ falta.DATA_FALTA }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="whatsapp://send?text={{ 'Resumo de Faltas - ' + encarregado + ': ' + faltas|map(attribute='MATRICULA')|join(', ') + ' - ' + faltas|map(attribute='DATA_FALTA')|join(', ') }}" class="share-btn" data-action="share/whatsapp/share">Compartilhar no WhatsApp</a>
+        {% endif %}
+        <a href="/" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #00897B; color: #fff; text-decoration: none; border-radius: 5px;">Voltar</a>
+    </div>
+</body>
+</html>

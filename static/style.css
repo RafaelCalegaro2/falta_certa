@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+}
+input, textarea, button {
+    display: block;
+    margin: 10px auto;
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+}
+button {
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+.falta-container {
+    background-color: #FFF1F0;
+    border: 2px solid #E57373;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+@media (max-width: 480px) {
+    input, textarea, button {
+        font-size: 14px;
+    }
+    .falta-container {
+        padding: 10px;
+    }
+}
